@@ -38,7 +38,7 @@ class Cart:
 
     def shipping(self) -> int:
         # Free shipping is decided on what the customer pays for the items.
-        if self.items_total() >= FREE_SHIPPING_FROM:
+        if self.items_total() - self.discount() >= FREE_SHIPPING_FROM:
             return 0
         return SHIPPING_FEE
 

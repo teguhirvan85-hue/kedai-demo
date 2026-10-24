@@ -19,6 +19,12 @@ class CartTest(unittest.TestCase):
         cart.add("kettle", 80_000)
         self.assertEqual(cart.discount(), 8_000)
 
+    def test_free_shipping_uses_discounted_subtotal(self):
+        cart = Cart(coupon_percent=10)
+        cart.add("kettle", 52_000)
+        self.assertEqual(cart.shipping(), SHIPPING_FEE)
+        self.assertEqual(cart.total(), 46_800 + SHIPPING_FEE)
+
     def test_qty_must_be_positive(self):
         with self.assertRaises(ValueError):
             Cart().add("tea", 12_000, qty=0)
